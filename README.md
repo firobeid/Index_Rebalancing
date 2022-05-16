@@ -16,20 +16,10 @@
     2. Constituent Weighting Scheme: Run an optimization problem given:
     
         a. minimize $\sum_{i=1}^{n_stocks} [(Capped_Wt - Unapped_Wt) / Unapped_Wt]$
-<<<<<<< HEAD
 
         b. Stock Cap = Min (5%, 20*FCap_Wt)
 
         c. Stock Floor = 0.05%
-
-=======
-        
-        b. Stock Cap = Min (5%, 20*FCap_Wt)
-        
-        c. Stock Floor =0.05%
-        
->>>>>>> 5aab5a83457a021b59fefd16596fd4d607c8af7d
-        d. Sector Cap = 50%
 
 ### Files Navigation
 * `Index_Rebalancing.ipynb`: Code explanation, building, some data visulaization and divide by parts
