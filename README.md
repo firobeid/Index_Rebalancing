@@ -30,7 +30,7 @@
     - In the command line to run (after going to directory location): Type `python -m unittest -v testing.py`
 * `Tasks for Python Test (003).xlsx`: Input and destination output file for algo to run and save results in to. 
 
-*Note*: Output tab in the  `Tasks for Python Test (003).xlsx` is already populated with results and the code already is resilient against overriting existing output based on date already saved, thus delete all contenst in the output tab to see the full proccess of saving the results.
+*Note*: Output tab in the  `Tasks for Python Test (003).xlsx` is already populated with results and the code already is resilient against overwriting existing output based on date already saved, thus delete all contenst in the output tab to see the full proccess of saving the results.
 
 ### Limitation
 The optimization constraint `Sector Cap = 50%` was not met in the minimization process although passed to the minimization
