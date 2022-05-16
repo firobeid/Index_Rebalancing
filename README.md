@@ -15,14 +15,17 @@
     1. Index Construction Rules:Fetch assets based on Z_Value ranking and apply certain buffer for a specific date
     2. Constituent Weighting Scheme: Run an optimization problem given:
         a. minimize $\sum_{i=1}^{n_stocks} [(Capped_Wt - Unapped_Wt) / Unapped_Wt]$
+
         b. Stock Cap = Min (5%, 20*FCap_Wt)
-        c. Stock Floor =0.05%
+
+        c. Stock Floor = 0.05%
+
         d. Sector Cap = 50%
 
 ### Files Navigation
 * `Index_Rebalancing.ipynb`: Code explanation, building, some data visulaization and divide by parts
 * `Index_Rebalancer.py`: Executable script alternative for the jupyter notebook
-    - In the command line to run (after going to directory location): Type `python Index_Rebalancer.py`
+    - In the command line to run (after going to directory location): Type `python Index_Rebalancer.py` then follow terminal prompts to select rebalancing date.
 * ` functions.py`: Some helper functions needed for the executable script
 * `testing.py`: Unit testing file for proof of concept on testing
     - In the command line to run (after going to directory location): Type `python -m unittest -v testing.py`
