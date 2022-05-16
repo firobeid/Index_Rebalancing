@@ -14,9 +14,13 @@
 * The code is two parts:
     1. Index Construction Rules:Fetch assets based on Z_Value ranking and apply certain buffer for a specific date
     2. Constituent Weighting Scheme: Run an optimization problem given:
+    
         a. minimize $\sum_{i=1}^{n_stocks} [(Capped_Wt - Unapped_Wt) / Unapped_Wt]$
+        
         b. Stock Cap = Min (5%, 20*FCap_Wt)
+        
         c. Stock Floor =0.05%
+        
         d. Sector Cap = 50%
 
 ### Files Navigation
