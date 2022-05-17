@@ -5,8 +5,6 @@ import sys
 import unittest
 import warnings
 from datetime import datetime
-import hvplot.pandas
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd  # pip install openpyxl
 from openpyxl import load_workbook
@@ -102,6 +100,7 @@ def new_candidates_topUp50():
     print("***%d new assets have been added***"% (new_assets -start_assets))
     print("***%d assets have been total found***"% (selection.shape[0]))
     return selection
+
 def intial_weights():
     '''
     Adjust intial guess weights to fit constraints
@@ -109,8 +108,8 @@ def intial_weights():
     global x0
     #get indicies where sectors assets belong too same sector
     all_weights = []
-    sectors = set(selection["Sector Code"])
     x0 = np.array(selection["Max Wt"].values).round(4) #what we have to start with
+    sectors = set(selection["Sector Code"])
     for i in sectors:
         if isinstance(pd.Index(selection["Sector Code"]).get_loc(i), int):
             indexes = [pd.Index(selection["Sector Code"]).get_loc(i)]
@@ -119,7 +118,6 @@ def intial_weights():
         ub = 0.5
     #     print(i);print(indexes);print(sum(results[[indexes]]))
         all_weights.append({"Sector": i, "Assets Index": indexes, "Sector Weights Sum":sum(x0[[indexes]])})
-    
     for i in all_weights:
         indexes = i["Assets Index"]
         # print(indexes)
@@ -127,6 +125,10 @@ def intial_weights():
             print("Adjusting sector weights: %s" % i["Sector"])
             decrease_amount = (sum(x0[indexes]).round(4) - 0.5).round(4)
             x0[indexes] = x0[indexes] - decrease_amount/len(x0[indexes])
+    # make sure no weights are negative and all sum is = to 1
+    x0[x0 < 0] = 0.
+    x0 = (((x0 -((sum(x0)-1)/len(x0))).round(4))) 
+    x0[x0 < 0] = 0. #needed to be repeated to make sure the min is non-negative
     print("Sum of intial weights is %f" % sum(x0).round(4))
     
 def minimization_init():
@@ -166,7 +168,7 @@ def fun_Constraints(groupCodes):
         else:
             indexes = np.where(pd.Index(groupCodes).get_loc(code))[0].tolist()
         ub = 0.5
-        ubdict = {'type': 'ineq', 'fun': lambda x: np.array(0.5 - (np.sum(x[[indexes]])))}
+        ubdict = {'type': 'eq', 'fun': lambda x: np.array(0.5 - (np.sum(x[[indexes]])))}
         # lbdict = {'type': 'ineq', 'fun': lambda x: np.array(0 + (np.sum(x[[indexes]])))}
         _ = group_cons.append(ubdict); #group_cons.append(lbdict)
 
