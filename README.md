@@ -37,3 +37,4 @@ The optimization constraint `Sector Cap = 50%` was not met in the minimization p
 function. That is a limitation is must be investigated, one reason might be numerical precision in the optimizatio process
 or the constrain equations (for each sector) was not passed programatically correct to the minimization process.
 After researching also found that the issue might be from the intial_weights/gusses do not satisfy the future constraints and adjusted those by the `intial_weights()` function but that also didnt solve the issue and the sector constraint was not met after the optimization process.
+One thing to note, when the sector consrtaint type `ineq` is switched to `eq` in the `{'type': 'eq', 'fun': lambda x: np.array(0.5 - (np.sum(x[[indexes]])))}` all optimizations constrainst pass the check!
